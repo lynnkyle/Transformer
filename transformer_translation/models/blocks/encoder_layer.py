@@ -1,9 +1,9 @@
 import torch
 from torch import nn
-from models.layers.layer_norm import LayerNorm
-from models.layers.multi_head_attention import MultiHeadAttention
-from models.layers.position_wise_feed_forward import PositionwiseFeedForward
-from util.test import seed_torch
+from transformer_translation.models.layers.layer_norm import LayerNorm
+from transformer_translation.models.layers.multi_head_attention import MultiHeadAttention
+from transformer_translation.models.layers.position_wise_feed_forward import PositionwiseFeedForward
+from transformer_translation.script.test import seed_torch
 
 
 class EncoderLayer(nn.Module):
@@ -16,14 +16,14 @@ class EncoderLayer(nn.Module):
         self.norm2 = LayerNorm(d_model)
         self.dropout2 = nn.Dropout(p=drop_prob)
 
-    def forward(self, x, mask):
-        out = self.attention(q=x, k=x, v=x, mask=mask)
+    def forward(self, enc_x, mask):
+        out = self.attention(q=enc_x, k=enc_x, v=enc_x, mask=mask)
         out = self.dropout1(out)
-        out = self.norm1(out + x)
-        x = out
+        out = self.norm1(out + enc_x)
+        enc_x = out
         out = self.ffn(out)
         out = self.dropout2(out)
-        out = self.norm2(out + x)
+        out = self.norm2(out + enc_x)
         return out
 
 

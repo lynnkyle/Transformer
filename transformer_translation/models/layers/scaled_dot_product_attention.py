@@ -1,6 +1,5 @@
 import torch
 from torch import nn
-from util.test import seed_torch
 
 
 class ScaledDotProductAttention(nn.Module):
@@ -14,8 +13,7 @@ class ScaledDotProductAttention(nn.Module):
         k_t = k.transpose(-2, -1)
         atten_score = q @ k_t / torch.sqrt(torch.tensor(d_tensor))
         if mask is not None:
-            atten_score = torch.masked_fill(atten_score, mask)
+            atten_score = torch.masked_fill(atten_score, mask == False, -1e-12)
         atten_score = self.softmax(atten_score)
         v = atten_score @ v
         return v, atten_score
-

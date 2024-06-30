@@ -1,7 +1,6 @@
-import torch
 from torch import nn
-from models.layers.scaled_dot_product_attention import ScaledDotProductAttention
-from util.test import seed_torch
+from transformer_translation.models.layers.scaled_dot_product_attention import ScaledDotProductAttention
+from transformer_translation.script.test import seed_torch
 
 
 class MultiHeadAttention(nn.Module):

@@ -1,9 +1,9 @@
 import torch
 from torch import nn
-from models.layers.multi_head_attention import MultiHeadAttention
-from models.layers.layer_norm import LayerNorm
-from models.layers.position_wise_feed_forward import PositionwiseFeedForward
-from util.test import seed_torch
+from transformer_translation.models.layers.multi_head_attention import MultiHeadAttention
+from transformer_translation.models.layers.layer_norm import LayerNorm
+from transformer_translation.models.layers.position_wise_feed_forward import PositionwiseFeedForward
+from transformer_translation.script.test import seed_torch
 
 
 class DecoderLayer(nn.Module):
