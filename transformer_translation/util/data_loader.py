@@ -37,7 +37,8 @@ class DataLoader:
 
     def make_iter(self, train_data, test_data, val_data, batch_size, device):
         train_iter, test_iter, val_iter = BucketIterator.splits((train_data, test_data, val_data),
-                                                                batch_size=batch_size, device=device)
+                                                                batch_size=batch_size, device=device,
+                                                                shuffle=False)
         return train_iter, test_iter, val_iter
 
 

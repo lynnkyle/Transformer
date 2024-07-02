@@ -1,17 +1,17 @@
-import conf
+from conf import *
 from util.tokenizer import Tokenizer
 from util.data_loader import DataLoader
 
 tokenizer = Tokenizer()
 
-loader = DataLoader(path=conf.dataset_path, ext=('.en', '.de'), tokenize_en=tokenizer.tokenize_en,
+loader = DataLoader(path=dataset_path, ext=('.en', '.de'), tokenize_en=tokenizer.tokenize_en,
                     tokenize_de=tokenizer.tokenize_de, init_token='<sos>',
                     eos_token='<eos>')
 
 train_data, test_data, val_data = loader.make_dataset()
-loader.build_vocab(train_data, min_freq=conf.min_freq)
-train_iter, test_iter, val_iter = loader.make_iter(train_data, test_data, val_data, batch_size=conf.batch_size,
-                                                   device=conf.device)
+loader.build_vocab(train_data, min_freq=min_freq)
+train_iter, test_iter, val_iter = loader.make_iter(train_data, test_data, val_data, batch_size=batch_size,
+                                                   device=device)
 
 src_pad_idx = loader.source.vocab.stoi['<pad>']
 tgt_pad_idx = loader.target.vocab.stoi['<pad>']
